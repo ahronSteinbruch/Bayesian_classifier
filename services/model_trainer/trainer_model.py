@@ -4,16 +4,16 @@ from pprint import pprint
 class Trainer_model:
     def __init__(self, df):
         self.df = df
-        self.target_values = df["accepted"].unique()
+        self.target_values = df["target"].unique()
 
     def getWeights(self):
         weights = dict()
 
         for target in self.target_values:
             weights[target] = dict()
-            target_df = self.df[self.df["accepted"] == target]  # Filter for current target
+            target_df = self.df[self.df["target"] == target]  # Filter for current target
 
-            for col in self.df.columns.tolist()[:-1]:  # Skip the last column (assumed to be 'accepted')
+            for col in self.df.columns.tolist()[1:]:  # Skip the last column (assumed to be 'accepted')
                 weights[target][col] = dict()
                 num_values = self.df[col].unique().shape[0]
                 ifZero = False
