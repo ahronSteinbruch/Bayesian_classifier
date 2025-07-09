@@ -1,0 +1,5 @@
+# Configuration File
+DATABASE_URI: "sqlite:///data.db"
+DATA_PATH: "data/customers.csv"
+HOST: "localhost"
+PORT: 5000

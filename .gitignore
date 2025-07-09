@@ -1,0 +1,109 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.install-record.txt
+MANIFEST
+
+# PyInstaller
+#  Usually these files are created when using PyInstaller to bundle your app
+build/
+dist/
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytype/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.virtualenvs/
+
+# pyenv
+.python-version
+
+# data directories (adjust as needed)
+/data/
+/raw/
+/processed/
+/external/
+
+# VS Code & other editors
+/.vscode/
+*.swp
+*.swo
+
+# PyCharm specific
+.idea/
+*.iml
+*.iws
+*.pybak
+
+# Logs and databases
+*.log
+*.sqlite3
+*.sqlitedb
+
+# Cache directories
+__pycache__/
+*.py[cod]
+*$py.class
+*.py~*
+*.db~
+*.csv~
+*.xlsx~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Optional: Ignore large output files (customize based on your project)
+output/
+results/
+
+# Optional: Ignore virtual environment
