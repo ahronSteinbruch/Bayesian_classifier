@@ -17,6 +17,5 @@ class Cleaner:
         self.df = self.df.rename(columns={self.colTargetName: "target"})
         self.df = self.df[["target"] + [col for col in self.df.columns if col != "target"]]
 
-
     def getData(self):
         return self.df
