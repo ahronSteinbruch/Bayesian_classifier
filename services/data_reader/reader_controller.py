@@ -18,10 +18,8 @@ def index():
 
 @app.post("/parse_data")
 def test(model_data: ModelData):
-    print(model_data)
     df = pd.DataFrame(model_data.data)
-    print(df)
-    return df.to_json(orient="records")
+    return df.to_dict(orient="records")
 @app.get("/expected_schema")
 def expected_schema():
     return {

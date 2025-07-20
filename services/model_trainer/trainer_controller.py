@@ -19,7 +19,6 @@ def index():
             'port': 8002
         }
 
-
 @app.post('/train_model')
 async def clean_data(payload: JSONData):
     df = pd.DataFrame(payload.df)
