@@ -1,19 +1,23 @@
 # data_parser.py
 
+import json
+from typing import Dict, List, Optional, Union
+
 import pandas as pd
-from typing import Optional, List, Dict, Union
 from fastapi import HTTPException
 from pydantic import BaseModel
-import json
+
 
 class ModelData(BaseModel):
     data: List[Dict[str, Union[str, int, float]]]
+
+
 async def parse_data(
     file_bytes: Optional[bytes],
     filename: Optional[str],
     csv_text: Optional[str],
     json_text: Optional[str],
-    json_body: Optional[ModelData],  #👈 כאן - מקבלים את ModelData ולא רשימה פשוטה
+    json_body: Optional[ModelData],  # 👈 כאן - מקבלים את ModelData ולא רשימה פשוטה
 ):
     print(json_body)
     if file_bytes and filename:

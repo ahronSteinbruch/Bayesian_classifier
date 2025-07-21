@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 120
+exclude =
+    .git,
+    _pycache_,
+    venv,
+    .venv,
+    build,
+    dist,
+    logs
+per-file-ignores =
+    _init_.py:F401

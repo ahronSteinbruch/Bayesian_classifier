@@ -1,9 +1,11 @@
+from typing import Dict, List, Union
+
+import pandas as pd
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import List, Dict, Union
-import pandas as pd
-from evaluator_service import Evaluator
+
+from .evaluator_service import Evaluator
 
 
 # Pydantic model for the incoming request data
@@ -15,16 +17,12 @@ class EvaluationRequest(BaseModel):
 app = FastAPI()
 
 
-@app.get('/')
+@app.get("/")
 def index():
-    return {
-        'my name': 'model evaluator',
-        'status': 'OK',
-        'port': 8004
-    }
+    return {"my name": "model evaluator", "status": "OK", "port": 8004}
 
 
-@app.post('/evaluate')
+@app.post("/evaluate")
 async def evaluate_model(request: EvaluationRequest):
     """
     Receives test data and a predictor URL, and returns model performance metrics.

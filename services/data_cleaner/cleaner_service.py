@@ -1,5 +1,5 @@
 class Cleaner:
-    def __init__(self, df,colTargetName):
+    def __init__(self, df, colTargetName):
         self.df = df
         self.colTargetName = colTargetName
         self.cleanData()
@@ -15,7 +15,9 @@ class Cleaner:
         rename the target column
         """
         self.df = self.df.rename(columns={self.colTargetName: "target"})
-        self.df = self.df[["target"] + [col for col in self.df.columns if col != "target"]]
+        self.df = self.df[
+            ["target"] + [col for col in self.df.columns if col != "target"]
+        ]
 
     def getData(self):
         return self.df

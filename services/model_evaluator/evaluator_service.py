@@ -1,7 +1,8 @@
+from typing import Dict
+
 import pandas as pd
 import requests
 from sklearn.metrics import accuracy_score, precision_score, recall_score
-from typing import Dict
 
 
 class Evaluator:
@@ -11,8 +12,12 @@ class Evaluator:
         """Calculates accuracy, precision, and recall."""
         return {
             "accuracy": round(accuracy_score(y_true, y_pred), 2),
-            "precision": round(precision_score(y_true, y_pred, average='weighted', zero_division=0), 2),
-            "recall": round(recall_score(y_true, y_pred, average='weighted', zero_division=0), 2),
+            "precision": round(
+                precision_score(y_true, y_pred, average="weighted", zero_division=0), 2
+            ),
+            "recall": round(
+                recall_score(y_true, y_pred, average="weighted", zero_division=0), 2
+            ),
         }
 
     @staticmethod
@@ -31,7 +36,9 @@ class Evaluator:
         y_true = df["target"].tolist()
         y_pred = []
 
-        print(f"Starting evaluation... Sending {len(X_test)} rows to predictor at {predictor_url}")
+        print(
+            f"Starting evaluation... Sending {len(X_test)} rows to predictor at {predictor_url}"
+        )
 
         # Send each row to the predictor service for a prediction
         for _, row in X_test.iterrows():
@@ -47,7 +54,9 @@ class Evaluator:
                 y_pred.append(None)  # Or a default value
 
         # Filter out failed predictions if any
-        valid_predictions = [(true, pred) for true, pred in zip(y_true, y_pred) if pred is not None]
+        valid_predictions = [
+            (true, pred) for true, pred in zip(y_true, y_pred) if pred is not None
+        ]
         if not valid_predictions:
             return {"error": "Could not get any predictions from the server."}
 
