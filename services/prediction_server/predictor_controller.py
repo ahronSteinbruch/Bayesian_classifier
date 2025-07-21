@@ -30,16 +30,24 @@ def load_model(model_data: ModelData):
     return {"status": "Model loaded"}
 
 
+
+
 @app.post("/predict")
 def predict(req: PredictRequest):
     if predictor is None:
         raise HTTPException(status_code=400, detail="Model not loaded yet")
-    prediction = predictor.search_in_cech(req.features)
-    if prediction.status_code != 200:
-        prediction = predictor.predict(req.features)
-        predictor.save_prediction_in_cache(req.features, prediction)
-    return {"prediction": prediction}
 
+    cache_response = predictor.search_in_cache(req.features)
+    if cache_response.status_code == 200:
+        # חלץ את התחזית מתוך ה-JSON שהתקבל
+        prediction = cache_response.json().get("prediction")
+        print("Prediction found in cache.")
+        return {"prediction": prediction}
+    print("Prediction not in cache. Calculating...")
+    prediction = predictor.predict(req.features)
+    predictor.save_prediction_in_cache(req.features, prediction)
+
+    return {"prediction": prediction}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8003)

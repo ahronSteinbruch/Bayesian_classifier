@@ -1,14 +1,17 @@
-from typing import Dict
 import requests
+from typing import Dict
+
 
 class Predictor:
     def __init__(
-        self,
-        model_weights: Dict[str, Dict[str, Dict[str, float]]],
-        targets_size: Dict[str, float],
+            self,
+            model_weights: Dict[str, Dict[str, Dict[str, float]]],
+            targets_size: Dict[str, float],
     ):
         self.model_weights = model_weights
         self.targets_size = targets_size
+        self.cache_url = "http://cache:8005"  # שם השירות הנכון
+
     def predict(self, row: dict) -> str:
         options = {}
         for option in self.model_weights:
@@ -27,8 +30,12 @@ class Predictor:
         result *= self.targets_size.get(option, 1e-6)
         return result
 
-    def search_in_cech(self, row: dict):
-        res = requests.get("http://cesh:8005/predict", json=row)
+    def search_in_cache(self, row: dict):
+        # שלח בקשת GET עם התכונות כ-JSON
+        res = requests.get(f"{self.cache_url}/predict", json=row)
         return res
+
     def save_prediction_in_cache(self, row: dict, prediction: str):
-        requests.post("http://cache:8005/predict", json={"features": row, "prediction": prediction})
+        # שלח בקשת POST לנקודת הקצה הנכונה
+        requests.post(f"{self.cache_url}/predict", json={"features": row, "prediction": prediction})
+
