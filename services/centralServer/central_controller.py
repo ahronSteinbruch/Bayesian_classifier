@@ -12,3 +12,4 @@ class DataFrameRequest(BaseModel):
 @app.get("/")
 def index():
     return {"status": "OK"}
+
