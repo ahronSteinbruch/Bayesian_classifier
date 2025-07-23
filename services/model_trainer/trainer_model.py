@@ -34,5 +34,4 @@ class Trainer_model:
                         weights[target][col][val_str] = (weights[target][col][val_str]+1) / (num_values + sizeOfTarget)
                     else:
                         weights[target][col][val_str] = weights[target][col][val_str] / sizeOfTarget
-        pprint(weights)
         return weights, targetsSize

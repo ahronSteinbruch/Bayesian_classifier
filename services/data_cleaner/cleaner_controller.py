@@ -3,10 +3,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Dict, Optional, Union
 import pandas as pd
-from cleaner_service import Cleaner
+from .cleaner_service import Cleaner
 
 class JSONData(BaseModel):
-    df: List[Dict[str, Union[str, int, float]]]
+    df: List[Dict[str, Union[str, int, float, None]]]
     colTargetName: str
 
 app = FastAPI()

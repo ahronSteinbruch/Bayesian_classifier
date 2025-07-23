@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI, UploadFile, File, Form, Body, HTTPException
 from typing import List, Dict, Optional, Union
 from pydantic import BaseModel
-from data_parser import parse_data
+from .data_parser import parse_data
 import pandas as pd
 
 app = FastAPI()

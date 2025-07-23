@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Dict, Optional, Union
-from trainer_model import Trainer_model
+from .trainer_model import Trainer_model
 import pandas as pd
 
 class JSONData(BaseModel):

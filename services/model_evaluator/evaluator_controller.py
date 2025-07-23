@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Dict, Union
 import pandas as pd
-from evaluator_service import Evaluator
+from .evaluator_service import Evaluator
 
 
 # Pydantic model for the incoming request data
