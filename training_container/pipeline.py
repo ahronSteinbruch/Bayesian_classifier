@@ -1,6 +1,6 @@
 import pandas as pd
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 from cleaner import DataCleaner
 from trainer import ModelTrainer
@@ -24,9 +24,13 @@ def run_training_pipeline(file_path='Intelligence_Selection.csv'):
         print("\n--- Pipeline Complete ---", flush=True)
         print(f"Evaluation: {evaluation}", flush=True)
         return {"model": model, "evaluation": evaluation}
+    except FileNotFoundError as e:
+        print(f"PIPELINE FAILED: {e}", flush=True)
+        raise HTTPException(status_code=404, detail=f"Data file not found: {file_path}")
     except Exception as e:
         print(f"PIPELINE FAILED: {e}", flush=True)
-        return None
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred in the training pipeline: {str(e)}")
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8080)
