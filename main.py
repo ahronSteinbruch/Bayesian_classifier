@@ -1,25 +1,28 @@
 import pandas as pd
-import requests
-from pprint import pprint
+from sklearn.model_selection import train_test_split
 
+from services.data_cleaner.cleaner_service import Cleaner
+from services.model_evaluator.evaluator_service import Evaluator
+from services.model_trainer.trainer_model import Trainer_model
+from services.prediction_server.predictor_service import Predictor
 
 df = pd.read_csv('Intelligence_Selection.csv')
 df = df.dropna()
 
-Reader_url = 'http://127.0.0.1:8000/parse_data'
-res = requests.post(Reader_url, json={"data": df.to_dict(orient="records")})
+clean_df = Cleaner(df,"accepted").getData()
 
-Cleaner_url = 'http://127.0.0.1:8001/clean_data'
-res = requests.post(Cleaner_url, json={"df":df.to_dict(orient="records") , "colTargetName": "accepted"})
+# 1. חלוקת הנתונים
+train_df, test_df = train_test_split(clean_df, test_size=0.3, random_state=42)
 
-cleaned_df = pd.DataFrame(res.json())
-print(cleaned_df)
-Trainer_url = 'http://127.0.0.1:8002/train_model'
-res = requests.post(Trainer_url, json={"df":cleaned_df.to_dict(orient="records")})
+# 2. אימון המודל על 70%
+weights, targets_size = Trainer_model(train_df).getWeights()
+predictor = Predictor(weights, targets_size)
 
-model = res.json()
-model = {"weights": model[0], "group_size": model[1]}
-pprint(model)
-model_url = 'http://127.0.0.1:8003/predict'
-res = requests.post(model_url, json= model)
-pprint(res.json())
+# 3. בדיקה על 30% מהנתונים
+evaluator = Evaluator(test_df, predictor)
+metrics = evaluator.evaluate()
+print(metrics)
+# # 4. הדפסת התוצאות
+# print("Evaluation Results:")
+# for metric, value in metrics.items():
+#     print(f"{metric.capitalize()}: {value}")

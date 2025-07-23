@@ -1,7 +1,6 @@
-from typing import Dict, Any, Optional
 
 class Predictor:
-    def __init__(self, model_weights: Dict[str, Dict[str, Dict[str, float]]], targets_size: Dict[str, float]):
+    def __init__(self,model_weights, targets_size):
         self.model_weights = model_weights
         self.targets_size = targets_size
 
