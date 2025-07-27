@@ -14,7 +14,7 @@ cache = Cache()
 
 
 class PredictionRequest(BaseModel):
-    features: Dict[str, Any]
+    features: Dict[str,Any]
 
 
 def fetch_and_load_model():
